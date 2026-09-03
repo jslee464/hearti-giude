@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#6B4E2A">
+<meta name="color-scheme" content="light">
 <title>하티 보호자 참여 안내 · 세브란스병원 심장내과</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F6F1E8; --card:#FFFFFF; --ink:#2B2216; --muted:#6B5D4D; --line:#E3D8C6;
-    --hati:#6B4E2A; --hati-2:#7C5C33; --mint:#F0E7D7; --mint-2:#DFD1B9;
-    --warn-bg:#FAEDE4; --warn-ink:#8A4520; --warn-line:#EDCDB6;
+    color-scheme: only light;
+    --bg:#FFFFFF; --card:#FFFFFF; --ink:#212121; --muted:#6E6E6A; --line:#E7E6E3;
+    --hati:#6B4E2A; --hati-2:#7A5B35; --mint:#F5F4F1; --mint-2:#E3E1DC;
+    --warn-bg:#FCF4EC; --warn-ink:#8A4520; --warn-line:#EBD9C6;
     --err:#B3372A; --err-bg:#FDF0EE;
-    --serif:"Noto Serif KR","Apple SD Gothic Neo","Nanum Myeongjo",serif;
+    --serif:"Malgun Gothic",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
     --sans:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
     --radius:16px;
   }
@@ -25,7 +25,7 @@
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;padding-bottom:104px;word-break:keep-all;overflow-wrap:anywhere}
   a{color:var(--hati-2)}
   h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;line-height:1.3;margin:0}
-  h1{font-size:28px}
+  h1{font-size:31px}
   h2{font-size:22px;margin-bottom:10px}
   h3{font-size:18px}
   p{margin:0 0 12px}
@@ -38,6 +38,13 @@
   .org{font-size:13px;letter-spacing:.06em;color:var(--hati);font-weight:600;margin-bottom:10px}
   .org span{color:var(--muted);font-weight:500;letter-spacing:0;margin-left:8px}
   .mark{color:var(--hati);margin-right:6px}
+  .mast-toggle{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;letter-spacing:inherit;display:flex;align-items:center;width:100%;text-align:left;cursor:pointer}
+  .mast-toggle:focus-visible{outline:3px solid var(--hati-2);outline-offset:4px;border-radius:8px}
+  .chev{margin-left:auto;font-size:19px;color:var(--hati-2);transition:transform .25s ease;line-height:1;padding-left:8px}
+  .masthead.is-collapsed .chev{transform:rotate(-90deg)}
+  .mast-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .3s ease}
+  .masthead.is-collapsed .mast-body{grid-template-rows:0fr}
+  .mast-inner{overflow:hidden;min-height:0}
   .lede{margin:12px 0 16px}
   .trust{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:stretch;border-top:1px dashed var(--line);padding-top:14px}
   .seal{border:2px dashed var(--hati);border-radius:10px;padding:8px 12px;text-align:center;min-width:120px;display:flex;flex-direction:column;justify-content:center}
@@ -52,17 +59,16 @@
   .banner.demo{background:#EEF2FF;border-color:#C7D2FE;color:#3730A3}
   .banner.draft{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink)}
 
-  /* ---- station rail: the three real stages ---- */
-  .rail{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin:16px 0 14px;position:relative}
-  .rail::before{content:"";position:absolute;left:16%;right:16%;top:20px;height:2px;background:var(--mint-2);z-index:0}
-  .station{position:relative;z-index:1;background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer}
-  .station .n{width:40px;height:40px;border-radius:50%;background:var(--card);border:2px solid var(--mint-2);display:grid;place-items:center;font-family:var(--serif);font-size:17px;color:var(--muted);transition:background .2s,border-color .2s,color .2s}
-  .station.is-current{color:var(--hati)}
-  .station.is-current .n{background:var(--hati);border-color:var(--hati);color:#fff}
-  .station.is-done .n{background:var(--mint);border-color:var(--hati-2);color:var(--hati-2)}
-  .station.is-done .n::before{content:"✓";font-family:var(--sans);font-weight:700}
+  /* ---- station rail: segmented tab bar ---- */
+  .rail{position:sticky;top:8px;z-index:15;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:5px;margin:14px 0;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+  .station{display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:10px;padding:11px 4px;background:transparent;color:var(--muted);font-size:15px;font-weight:700;cursor:pointer;transition:background .15s,color .15s}
+  .station .n{width:22px;height:22px;flex:0 0 22px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-size:12.5px;font-weight:700;line-height:1}
+  .station.is-current{background:var(--hati);color:#fff}
+  .station.is-done{color:var(--hati-2)}
+  .station.is-done .n{background:var(--mint);border-color:var(--hati-2)}
+  .station.is-done .n::before{content:"✓"}
   .station.is-done .n span{display:none}
-  .station:focus-visible .n{outline:3px solid var(--hati-2);outline-offset:2px}
+  .station:focus-visible{outline:3px solid var(--hati-2);outline-offset:2px}
 
   /* ---- panels ---- */
   .panel{display:none}
@@ -72,7 +78,7 @@
   .hint{color:var(--muted);font-size:15px}
 
   /* document panel (설명문) */
-  .doc{border:1px solid var(--line);border-radius:12px;background:#FDFAF4;margin:14px 0}
+  .doc{border:1px solid var(--line);border-radius:12px;background:#FBFBFA;margin:14px 0}
   .doc summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .doc summary::-webkit-details-marker{display:none}
   .doc summary::after{content:"펼치기";font-size:13px;color:var(--hati-2);font-weight:600;white-space:nowrap}
@@ -105,10 +111,10 @@
   .radio{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:15px}
   .radio input{width:22px;height:22px;accent-color:var(--hati);margin:0}
 
-  .sigwrap{position:relative;border:1.5px dashed var(--hati-2);border-radius:12px;background:#fff;overflow:hidden}
+  .sigwrap{position:relative;border:1.5px dashed #CFCDC8;border-radius:12px;background:#fff;overflow:hidden}
   .sigwrap canvas{display:block;width:100%;height:190px;touch-action:none}
   .sigwrap .baseline{position:absolute;left:24px;right:24px;bottom:44px;border-top:1px solid var(--mint-2);pointer-events:none}
-  .sigwrap .ghost{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;color:#C8BBA6;font-size:16px;pointer-events:none}
+  .sigwrap .ghost{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;color:#C2C1BD;font-size:16px;pointer-events:none}
   .sigwrap.has-ink .ghost{display:none}
   .sigtools{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
   .linkbtn{background:none;border:0;color:var(--hati-2);font-weight:600;font-size:15px;padding:8px 4px;cursor:pointer}
@@ -118,13 +124,13 @@
   .btn:focus-visible{outline:3px solid var(--hati-2);outline-offset:3px}
   .btn.secondary{background:#fff;color:var(--hati)}
   .btn.secondary:hover{background:var(--mint)}
-  .btn[disabled],.btn[aria-disabled="true"]{background:#C9D6CF;border-color:#C9D6CF;color:#fff;cursor:not-allowed}
+  .btn[disabled],.btn[aria-disabled="true"]{background:#D9D6D0;border-color:#D9D6D0;color:#fff;cursor:not-allowed}
   .btn.busy{opacity:.7;pointer-events:none}
   .err{display:none;margin:12px 0 0;padding:12px 14px;border-radius:12px;background:var(--err-bg);color:var(--err);border:1px solid #F3C9C2;font-size:15px}
   .err.is-on{display:block}
   .alt{text-align:center;font-size:14px;margin:14px 0 0}
 
-  .done{border:2px solid var(--hati-2);background:var(--mint)}
+  .done{border:2px solid var(--hati-2);background:#FAF9F7}
   .done h2{color:var(--hati)}
   .receipt{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:15px;margin:10px 0 16px}
   .receipt dt{color:var(--muted)}
@@ -132,7 +138,7 @@
   .btnrow{display:grid;gap:10px}
 
   /* download block */
-  .dl{border:2px solid var(--hati);border-radius:var(--radius);padding:16px;background:#fff;margin-bottom:14px}
+  .dl{border:1.5px solid var(--line);border-radius:var(--radius);padding:16px;background:#fff;margin-bottom:14px}
   .dl .meta{font-size:13px;color:var(--muted);margin:8px 0 0;text-align:center}
   .dl .locked{display:none;margin:10px 0 0;font-size:14px;color:var(--warn-ink);background:var(--warn-bg);border-radius:10px;padding:10px 12px}
   .dl.is-locked .locked{display:block}
@@ -144,8 +150,8 @@
   .step-n{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:var(--hati);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:19px}
   .step-h h3{padding-top:6px}
   .step p{margin-bottom:8px}
-  .step .ui{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:0 6px;background:#F8F4EB;font-weight:600;font-size:15px;white-space:nowrap}
-  .step .quote{border-left:3px solid var(--mint-2);padding:6px 12px;color:var(--muted);font-size:15px;margin:6px 0 10px;background:#FBF7F0;border-radius:0 8px 8px 0}
+  .step .ui{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:0 6px;background:#F4F3F1;font-weight:600;font-size:15px;white-space:nowrap}
+  .step .quote{border-left:3px solid var(--mint-2);padding:6px 12px;color:var(--muted);font-size:15px;margin:6px 0 10px;background:#F7F7F5;border-radius:0 8px 8px 0}
   .step.cond{background:var(--warn-bg);border-color:var(--warn-line)}
   .step.cond .step-n{background:var(--warn-ink);font-size:11px;letter-spacing:.02em;font-family:var(--sans)}
   .shot{margin:12px 0 0;text-align:center}
@@ -153,7 +159,7 @@
   .shot figcaption{font-size:13px;color:var(--muted);margin-top:6px}
   .shot.missing img{display:none}
   .shot.optional.missing{display:none}
-  .shot.missing::before{content:"스크린샷 자리 · " attr(data-note);display:block;border:1.5px dashed var(--mint-2);border-radius:14px;padding:26px 12px;color:var(--muted);font-size:13px;background:#FBF7F0}
+  .shot.missing::before{content:"스크린샷 자리 · " attr(data-note);display:block;border:1.5px dashed var(--mint-2);border-radius:14px;padding:26px 12px;color:var(--muted);font-size:13px;background:#F7F7F5}
   .shots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .shots .shot img{max-width:100%}
 
@@ -168,7 +174,7 @@
   footer dd{margin:0}
 
   /* sticky help bar — the most important line on the page */
-  .helpbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(107,78,42,.10);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:20}
+  .helpbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.06);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:20}
   .helpbar .in{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:10px}
   .helpbar .txt{flex:1;font-size:13px;line-height:1.35;color:var(--muted)}
   .helpbar .txt b{display:block;font-size:15px;color:var(--ink)}
@@ -178,7 +184,7 @@
 
   #print-copy{display:none}
 
-  @media (min-width:700px){ body{font-size:18px} .wrap{padding-top:28px} }
+  @media (min-width:700px){ body{font-size:18px} .wrap{padding-top:28px} h1{font-size:34px} }
   @media (prefers-reduced-motion:reduce){ .panel.is-active{animation:none} *{transition:none!important} }
   @media print{
     body{background:#fff;padding:0;font-size:12.5px;line-height:1.55}
@@ -200,9 +206,10 @@
 <body>
 <div class="wrap">
 
-  <header class="masthead">
+  <header class="masthead" id="masthead">
     <div class="org">연세대학교 세브란스병원 심장내과 <span>하티 연구팀</span></div>
-    <h1><span class="mark">♥</span>하티 보호자 참여 안내</h1>
+    <h1><button type="button" class="mast-toggle" id="mast-toggle" aria-expanded="true" aria-controls="mast-body"><span class="mark">♥</span>하티 보호자 참여 안내<span class="chev" aria-hidden="true">▾</span></button></h1>
+    <div class="mast-body" id="mast-body"><div class="mast-inner">
     <p class="lede">이 페이지는 세브란스병원 심장내과 하티 연구팀이 운영합니다. 환자분께서 외래에서 연구 참여에 동의하시면서 보호자분 연락처를 알려주셨고, 그래서 이 안내를 드립니다. 보호자용 앱을 쓰려면 보호자분 본인의 동의가 먼저 필요합니다. 순서대로 진행하시면 10분쯤 걸립니다.</p>
     <div class="trust">
       <div class="seal"><span class="seal-k">IRB 승인번호</span><span class="seal-v" data-cfg="IRB_NO">-</span></div>
@@ -213,6 +220,7 @@
     </div>
     <div class="banner demo" id="demo-banner" hidden>지금은 시연 화면입니다. 여기에서 제출한 내용은 저장되지 않으며, 연구 승인 후 실제 접수를 시작합니다.</div>
     <div class="banner draft" id="draft-banner" hidden>동의서 초안 버전입니다. IRB 승인본 텍스트로 교체하고 CONFIG.CONSENT_VERSION에서 “draft”를 지우면 이 표시가 사라집니다.</div>
+    </div></div>
   </header>
 
   <nav class="rail" id="rail" aria-label="진행 단계">
@@ -288,9 +296,10 @@
         </fieldset>
 
         <fieldset>
-          <legend>보호자 정보</legend>
-          <div class="field"><label for="f-name">성명</label><input id="f-name" type="text" autocomplete="name" placeholder="홍길동"></div>
-          <div class="field"><label for="f-phone">휴대전화</label><input id="f-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000"><div class="help">연구팀이 설치·설문 안내를 드릴 번호입니다. 환자분이 알려주신 번호와 같은지 확인합니다.</div></div>
+          <legend>참여 정보</legend>
+          <div class="field"><label for="f-patient">환자 성명</label><input id="f-patient" type="text" placeholder="김영호"><div class="help">앱으로 연결하실 환자분의 성함입니다.</div></div>
+          <div class="field"><label for="f-name">보호자 성명</label><input id="f-name" type="text" autocomplete="name" placeholder="홍길동"></div>
+          <div class="field"><label for="f-phone">휴대전화</label><input id="f-phone" type="tel" autocomplete="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000"><div class="help">연구팀이 설치·설문 안내를 드릴 번호입니다. 환자분이 알려주신 번호와 같은지 확인합니다.</div></div>
           <div class="field"><label for="f-rel">환자와의 관계</label>
             <select id="f-rel">
               <option value="">선택해 주세요</option>
@@ -331,6 +340,7 @@
           <dt>접수번호</dt><dd id="r-code">-</dd>
           <dt>제출 일시</dt><dd id="r-time">-</dd>
           <dt>보호자</dt><dd id="r-name">-</dd>
+          <dt>환자</dt><dd id="r-patient">-</dd>
         </dl>
         <div class="btnrow">
           <button type="button" class="btn secondary" id="print-btn">동의서 사본 저장 (PDF)</button>
@@ -516,6 +526,10 @@ const CONFIG = {
   if (DEMO) $('#demo-banner').hidden = false;
   if (/draft/i.test(CONFIG.CONSENT_VERSION)) $('#draft-banner').hidden = false;
 
+  const mast = $('#masthead'), mastBtn = $('#mast-toggle');
+  function setMast(collapsed){ mast.classList.toggle('is-collapsed', collapsed); mastBtn.setAttribute('aria-expanded', String(!collapsed)); }
+  mastBtn.addEventListener('click', () => setMast(!mast.classList.contains('is-collapsed')));
+
   const dl = $('#dl'), dlBtn = $('#dl-btn');
   function refreshDownload(){
     const ok = unlocked && !!CONFIG.APK_URL;
@@ -540,8 +554,9 @@ const CONFIG = {
       s.classList.toggle('is-current', i === cur);
       s.classList.toggle('is-done', (s.dataset.go === 'consent' && unlocked) || (i < cur && s.dataset.go !== 'consent'));
     });
+    setMast(id !== 'consent');
     try { history.replaceState(null, '', '#' + id); } catch(e){}
-    window.scrollTo({ top: Math.max(0, $('#rail').offsetTop - 8), behavior: reduce ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
   }
   document.addEventListener('click', e => {
     const t = e.target.closest('[data-go]');
@@ -551,6 +566,13 @@ const CONFIG = {
   // ---------- consent form ----------
   const doc = $('#doc'), cRead = document.querySelector('input[name="c"][value="read"]');
   doc.addEventListener('toggle', () => { if (doc.open && !docOpened) { docOpened = true; cRead.disabled = false; cRead.closest('.check').classList.remove('is-off'); } });
+
+  const phoneEl = $('#f-phone');
+  phoneEl.addEventListener('input', () => {
+    const d = phoneEl.value.replace(/[^0-9]/g, '').slice(0, 11);
+    phoneEl.value = d.length > 7 ? d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7)
+                  : d.length > 3 ? d.slice(0,3) + '-' + d.slice(3) : d;
+  });
 
   const sig = initSignature($('#sigpad'), $('#sigwrap'));
   $('#sig-clear').addEventListener('click', sig.clear);
@@ -564,8 +586,10 @@ const CONFIG = {
     if (!docOpened) return fail('설명문을 먼저 펼쳐서 읽어 주세요.', doc.querySelector('summary'));
     const unchecked = checks.find(c => !c.checked);
     if (unchecked) return fail('동의 확인 항목을 모두 체크해 주세요.', unchecked);
+    const pname = $('#f-patient').value.trim();
+    if (pname.length < 2) return fail('환자분 성함을 입력해 주세요.', $('#f-patient'));
     const name = $('#f-name').value.trim();
-    if (name.length < 2) return fail('성명을 입력해 주세요.', $('#f-name'));
+    if (name.length < 2) return fail('보호자 성명을 입력해 주세요.', $('#f-name'));
     const phoneRaw = $('#f-phone').value.replace(/[^0-9]/g,'');
     if (!/^01[016789][0-9]{7,8}$/.test(phoneRaw)) return fail('휴대전화 번호를 확인해 주세요. (예: 010-1234-5678)', $('#f-phone'));
     const rel = $('#f-rel').value;
@@ -580,6 +604,7 @@ const CONFIG = {
     const items = {}; checks.forEach(c => items[c.value] = true);
     const payload = {
       receipt_code: receipt,
+      patient_name: pname,
       caregiver_name: name,
       caregiver_phone: phone,
       relationship: rel,
@@ -607,6 +632,7 @@ const CONFIG = {
       $('#r-code').textContent = receipt + (DEMO ? ' (시연)' : '');
       $('#r-time').textContent = fmtDate(submittedAt);
       $('#r-name').textContent = name + ' (' + relLabel(rel) + ')';
+      $('#r-patient').textContent = pname;
       buildPrintCopy(payload, submittedAt);
       $('#consent-form').hidden = true;
       $('#consent-done').hidden = false;
@@ -631,6 +657,7 @@ const CONFIG = {
       <h3>동의 확인</h3>
       <ul class="pc-items">${Object.keys(labels).map(k => `<li>${p.consent_items[k] ? '☑' : '☐'} ${esc(labels[k])}</li>`).join('')}</ul>
       <div class="pc-grid">
+        <div><b>환자 성명</b> ${esc(p.patient_name)}</div>
         <div><b>보호자 성명</b> ${esc(p.caregiver_name)}</div>
         <div><b>환자와의 관계</b> ${esc(relLabel(p.relationship))}</div>
         <div><b>휴대전화</b> ${esc(p.caregiver_phone)}</div>
@@ -656,6 +683,7 @@ const CONFIG = {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, r.width, r.height);
       ctx.lineWidth = 2.6; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#2B2216';
       strokes = 0; wrap.classList.remove('has-ink');
     }
@@ -668,7 +696,7 @@ const CONFIG = {
     // panels start hidden → size the canvas when the consent panel is visible
     new MutationObserver(setup).observe($('#consent'), { attributes: true, attributeFilter: ['class'] });
     return {
-      clear(){ ctx.clearRect(0, 0, canvas.width, canvas.height); strokes = 0; wrap.classList.remove('has-ink'); },
+      clear(){ ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); strokes = 0; wrap.classList.remove('has-ink'); },
       isEmpty(){ return strokes === 0; },
       dataURL(){ // flatten onto white so the PNG prints cleanly
         const c = document.createElement('canvas'); c.width = canvas.width; c.height = canvas.height;
